@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { TodosController } from './controller.ts';
 
-
 export class TodoRoutes {
     
     static get routes(): Router {
@@ -11,7 +10,7 @@ export class TodoRoutes {
         const todosController = new TodosController();
 
         router.get( '/', todosController.getTodos );
-        router.post('/', todosController.getTodos )
+        router.get('/:id', todosController.getTodoById );
 
         return router;
     }
