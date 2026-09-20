@@ -1,0 +1,25 @@
+{
+  "name": "rest-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch --experimental-strip-types src/app.ts",
+    "build": "echo 'No build step required'",
+    "start": "node --experimental-strip-types src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^18.0.1",
+    "env-var": "^7.5.0",
+    "express": "^5.2.1",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.2"
+  }
+}
