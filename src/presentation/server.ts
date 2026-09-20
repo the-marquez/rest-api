@@ -25,6 +25,10 @@ export class Server {
 
     async start(){
 
+        //Middlewares
+        this.server.use( express.json() ); // raw -> json
+        this.server.use( express.urlencoded({ extended: true }) ); // x-www-urlencoded
+
         // Public Folder (Static Files)
         this.server.use( express.static( this.publicPath ) );
 

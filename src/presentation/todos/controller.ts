@@ -32,6 +32,16 @@ export class TodosController {
 
     }
 
+    public createTodo = (req: express.Request, res: express.Response)=>{
+
+        const body = req.body;
+
+        res.json({
+            message: 'TODO created!',
+            content: body
+        });
+    }
+
 }
 
 
