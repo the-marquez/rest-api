@@ -2,9 +2,9 @@
 import express from 'express';
 
 const todos = [
-    { id: 1, text: 'Buy milk', createdAt: new Date() },
-    { id: 2, text: 'Buy bread', createdAt: new Date() },
-    { id: 3, text: 'Buy butter', createdAt: null }
+    { id: 1, text: 'Buy milk', completedAt: new Date() },
+    { id: 2, text: 'Buy bread', completedAt: new Date() },
+    { id: 3, text: 'Buy butter', completedAt: null }
 ];
 
 export class TodosController {
@@ -41,7 +41,7 @@ export class TodosController {
         const newTodo = {
             id: (todos.length + 1),
             text: text,
-            createdAt: null
+            completedAt: null
         };
 
         todos.push( newTodo );
@@ -68,16 +68,39 @@ export class TodosController {
             return res.status( 404 ).json({ error: `Todo with id ${id} not found!` });
         }
 
-        const { text } = req.body;
+        const { text, completedAt } = req.body;
 
-        if( !text ){
-            return res.status(400).json({ error: 'Text property is required!' });
-        }
+        todo.text = text || todo.text;
 
-        todo.text = text;
+        ( completedAt === 'null' )
+            ? todo.completedAt = null
+            : todo.completedAt = new Date( completedAt || todo.completedAt );
 
         res.json({
-            message: 'Task successfully updated',
+            message: 'Task successfully updated!',
+            data: todo
+        });
+    }
+
+    public dateleTodo = (req: express.Request, res: express.Response)=>{
+
+        const id: number = +req.params.id;
+
+        if( isNaN(id) ) {
+            return res.status(400).json({ error: 'ID argument is not a number!' });
+        }
+
+        //! REFERENCIA | Cualquier actualizacion afecta al item en el arreglo.
+        const todo = todos.find( td => td.id === id );
+
+        if( !todo ){
+            return res.status( 404 ).json({ error: `Todo with id ${id} not found!` });
+        }
+
+        todos.splice( todos.indexOf(todo), 1 );
+
+        res.json({
+            message: 'Task successfully deleted!',
             data: todo
         });
     }
